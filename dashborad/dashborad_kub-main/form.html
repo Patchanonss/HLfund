@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>URLkub</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+    <!-- -------------------------------------------------navbar -->
+
+
+    <nav class="bg-white border-gray-200 dark:bg-gray-900">
+        <div class="max-w-screen-xl flex flex-wrap items-center justify-between mx-auto p-4">
+            <a href="" class="flex items-center space-x-3 rtl:space-x-reverse">
+                <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">UTM maker</span>
+            </a>
+            <button data-collapse-toggle="navbar-default" type="button"
+                class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                aria-controls="navbar-default" aria-expanded="false">
+                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                    viewBox="0 0 17 14">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M1 1h15M1 7h15M1 13h15" />
+                </svg>
+            </button>
+            <div class="hidden w-full md:block md:w-auto" id="navbar-default">
+                <ul
+                    class="font-medium flex flex-col p-4 md:p-0 mt-4 border border-gray-100 rounded-lg bg-gray-50 md:flex-row md:space-x-8 rtl:space-x-reverse md:mt-0 md:border-0 md:bg-white dark:bg-gray-800 md:dark:bg-gray-900 dark:border-gray-700">
+                    <li>
+                        <a href="./index.html"
+                            class="block py-2 px-3 text-white bg-blue-700 rounded md:bg-transparent md:text-blue-700 md:p-0 dark:text-white md:dark:text-blue-500"
+                            aria-current="page">return</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- ------------------------end navbar -->
+
+<div class = "flex justify-center flow-col w-full ">
+    <div class="block max-w-sm p-6 bg-white border border-gray-200 rounded-lg shadow hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700 w-1/2">
+
+
+
+    <form id="urlForm" class="flex flex-col space-y-4">
+        <div class="flex items-center">
+
+            <div class="mb-5">
+                <label for="var1" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">medium input</label>
+                <input type="text" id="var1"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+            </div>
+        </div>
+
+        <div class="flex items-center">
+
+            <div class="mb-5">
+                <label for="var2" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">source
+                    input</label>
+                <input type="text" id="var2"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+            </div>
+        </div>
+
+
+        
+        <div class="flex items-center">
+            <div class="mb-5">
+                <label for="var3" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">campaign
+                    input</label>
+                <input type="text" id="var3"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" />
+            </div>
+
+        </div>
+        <button type="button" onclick="generateURL()"
+            class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-md shadow focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-400">Generate
+            URL</button>
+    </form>
+
+    <p id="generatedURL" class="text-center mt-4"></p>
+        
+
+    </div>
+
+</div>
+
+
+        
+
+
+
+    <script>
+        function generateURL() {
+            var var1 = document.getElementById("var1").value;
+            var var2 = document.getElementById("var2").value;
+            var var3 = document.getElementById("var3").value;
+
+            var baseUrl = "https://lhfund-main.vercel.app/?utm_medium=";
+            var url = baseUrl + encodeURIComponent(var1) + "&utm_source=" + encodeURIComponent(var2) + "&utm_campaign=" + encodeURIComponent(var3);
+
+            document.getElementById("generatedURL").textContent = "Generated URL: " + url;
+        }
+    </script>
+</body>
+
+</html>
