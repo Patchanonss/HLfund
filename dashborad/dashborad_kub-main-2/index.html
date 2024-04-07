@@ -1,40 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>HL Dashboard</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-  </head>
 
-  <body>
-    <!-- ------------------------ -->
-    <!-- component -->
-    <div class="fixed bottom-0 right-0 mb-4 mr-4">
-      <button
-        id="open-chat"
-        class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300 flex items-center"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="w-6 h-6 mr-2"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M12 6v6m0 0v6m0-6h6m-6 0H6"
-          ></path>
-        </svg>
-        🐶 Chat with Admin Bot
-      </button>
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HL Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body>
+  <!-- ------------------------ -->
+  <!-- component -->
+  <div class="fixed bottom-0 right-0 mb-4 mr-4">
+    <button id="open-chat"
+      class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300 flex items-center">
+      <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 mr-2" fill="none" viewBox="0 0 24 24"
+        stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"></path>
+      </svg>
+      🐶 Chat with Admin Bot
+    </button>
 
       <a
-        href="https://lhfund-main.vercel.app/utm"
+        href="./form.html"
         class="bg-blue-500 text-white py-2 px-4 rounded-md hover:bg-blue-600 transition duration-300 flex items-center mt-4"
       >
         <svg
@@ -99,158 +88,142 @@
         <div class="mb-2 text-right">
           <p class="bg-blue-500 text-white rounded-lg py-2 px-4 inline-block">design with tailwind</p>
         </div> -->
-          <div class="mb-2">
-            <p
-              class="bg-gray-200 text-gray-700 rounded-lg py-2 px-4 inline-block"
-            >
-              This is a response from the chatbot.
-            </p>
-          </div>
-        </div>
-        <div class="p-4 border-t flex">
-          <input
-            id="user-input"
-            type="text"
-            placeholder="Type a message"
-            class="w-full px-3 py-2 border rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-          />
-          <button
-            id="send-button"
-            class="bg-blue-500 text-white px-4 py-2 rounded-r-md hover:bg-blue-600 transition duration-300"
-          >
-            Send
-          </button>
+        <div class="mb-2">
+          <p class="bg-gray-200 text-gray-700 rounded-lg py-2 px-4 inline-block">
+            This is a response from the chatbot.
+          </p>
         </div>
       </div>
+      <div class="p-4 border-t flex">
+        <input id="user-input" type="text" placeholder="Type a message"
+          class="w-full px-3 py-2 border rounded-l-md focus:outline-none focus:ring-2 focus:ring-blue-500" />
+        <button id="send-button"
+          class="bg-blue-500 text-white px-4 py-2 rounded-r-md hover:bg-blue-600 transition duration-300">
+          Send
+        </button>
+      </div>
     </div>
-    <script>
-      const chatbox = document.getElementById("chatbox");
-      const chatContainer = document.getElementById("chat-container");
-      const userInput = document.getElementById("user-input");
-      const sendButton = document.getElementById("send-button");
-      const openChatButton = document.getElementById("open-chat");
-      const closeChatButton = document.getElementById("close-chat");
+  </div>
+  <script>
+    const chatbox = document.getElementById("chatbox");
+    const chatContainer = document.getElementById("chat-container");
+    const userInput = document.getElementById("user-input");
+    const sendButton = document.getElementById("send-button");
+    const openChatButton = document.getElementById("open-chat");
+    const closeChatButton = document.getElementById("close-chat");
 
-      let isChatboxOpen = true; // Set the initial state to open
+    let isChatboxOpen = true; // Set the initial state to open
 
-      // Function to toggle the chatbox visibility
-      function toggleChatbox() {
-        chatContainer.classList.toggle("hidden");
-        isChatboxOpen = !isChatboxOpen; // Toggle the state
+    // Function to toggle the chatbox visibility
+    function toggleChatbox() {
+      chatContainer.classList.toggle("hidden");
+      isChatboxOpen = !isChatboxOpen; // Toggle the state
+    }
+
+    // Add an event listener to the open chat button
+    openChatButton.addEventListener("click", toggleChatbox);
+
+    // Add an event listener to the close chat button
+    closeChatButton.addEventListener("click", toggleChatbox);
+
+    // Add an event listener to the send button
+    sendButton.addEventListener("click", function () {
+      const userMessage = userInput.value;
+      if (userMessage.trim() !== "") {
+        addUserMessage(userMessage);
+        respondToUser(userMessage);
+        userInput.value = "";
       }
+    });
 
-      // Add an event listener to the open chat button
-      openChatButton.addEventListener("click", toggleChatbox);
-
-      // Add an event listener to the close chat button
-      closeChatButton.addEventListener("click", toggleChatbox);
-
-      // Add an event listener to the send button
-      sendButton.addEventListener("click", function () {
+    userInput.addEventListener("keyup", function (event) {
+      if (event.key === "Enter") {
         const userMessage = userInput.value;
-        if (userMessage.trim() !== "") {
-          addUserMessage(userMessage);
-          respondToUser(userMessage);
-          userInput.value = "";
-        }
-      });
-
-      userInput.addEventListener("keyup", function (event) {
-        if (event.key === "Enter") {
-          const userMessage = userInput.value;
-          addUserMessage(userMessage);
-          respondToUser(userMessage);
-          userInput.value = "";
-        }
-      });
-
-      function addUserMessage(message) {
-        const messageElement = document.createElement("div");
-        messageElement.classList.add("mb-2", "text-right");
-        messageElement.innerHTML = `<p class="bg-blue-500 text-white rounded-lg py-2 px-4 inline-block">${message}</p>`;
-        chatbox.appendChild(messageElement);
-        chatbox.scrollTop = chatbox.scrollHeight;
+        addUserMessage(userMessage);
+        respondToUser(userMessage);
+        userInput.value = "";
       }
+    });
 
-      function addBotMessage(message) {
-        const messageElement = document.createElement("div");
-        messageElement.classList.add("mb-2");
-        messageElement.innerHTML = `<p class="bg-gray-200 text-gray-700 rounded-lg py-2 px-4 inline-block">${message}</p>`;
-        chatbox.appendChild(messageElement);
-        chatbox.scrollTop = chatbox.scrollHeight;
-      }
+    function addUserMessage(message) {
+      const messageElement = document.createElement("div");
+      messageElement.classList.add("mb-2", "text-right");
+      messageElement.innerHTML = `<p class="bg-blue-500 text-white rounded-lg py-2 px-4 inline-block">${message}</p>`;
+      chatbox.appendChild(messageElement);
+      chatbox.scrollTop = chatbox.scrollHeight;
+    }
 
-      function respondToUser(userMessage) {
-        // --------------------------------------------
-        async function fetchChatBotResponse(inputText) {
-          const apiUrl = `https://a027-35-231-73-17.ngrok-free.app/chat_bot?input_text=${inputText}`;
+    function addBotMessage(message) {
+      const messageElement = document.createElement("div");
+      messageElement.classList.add("mb-2");
+      messageElement.innerHTML = `<p class="bg-gray-200 text-gray-700 rounded-lg py-2 px-4 inline-block">${message}</p>`;
+      chatbox.appendChild(messageElement);
+      chatbox.scrollTop = chatbox.scrollHeight;
+    }
 
-          try {
-            // const response = await axios.get(apiUrl);
-            const response = await fetch(apiUrl, {
-              method: "get",
-              headers: new Headers({
-                "ngrok-skip-browser-warning": "69420",
-              }),
-            });
-            console.log("test", response);
-            if (!response.ok) {
-              throw new Error(`HTTP error! status: ${response.status}`);
-            }
+    function respondToUser(userMessage) {
+      // --------------------------------------------
+      async function fetchChatBotResponse(inputText) {
+        const apiUrl = `https://f915-104-196-187-243.ngrok-free.app/chat_bot?input_text=${inputText}`;
 
-            const data = await response.json();
-            console.log("API Response:", data);
-            addBotMessage(data);
-
-            // Assuming the API returns JSON. Use .text() if it returns plain text.
-
-            // Assuming 'data' contains the response message. Adjust based on the actual API response structure.
-
-            // Here you can call a function to display this message in your UI, for example:
-            // addBotMessage(data.message);
-          } catch (error) {
-            console.error("Error fetching data:", error);
+        try {
+          // const response = await axios.get(apiUrl);
+          const response = await fetch(apiUrl, {
+            method: "get",
+            headers: new Headers({
+              "ngrok-skip-browser-warning": "69420",
+            }),
+          });
+          console.log("test", response);
+          if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
           }
-        }
 
-        // Example usage:
-        fetchChatBotResponse(userMessage);
-        // ----------------------------------------------
-        let response = "Loading...";
+          const data = await response.json();
+          console.log("API Response:", data);
+          addBotMessage(data);
 
-        if (response) {
-          addBotMessage(response); // Assuming the response has a 'message' property
+          // Assuming the API returns JSON. Use .text() if it returns plain text.
+
+          // Assuming 'data' contains the response message. Adjust based on the actual API response structure.
+
+          // Here you can call a function to display this message in your UI, for example:
+          // addBotMessage(data.message);
+        } catch (error) {
+          console.error("Error fetching data:", error);
         }
       }
 
-      // Automatically open the chatbox on page load
-      toggleChatbox();
+      // Example usage:
+      fetchChatBotResponse(userMessage);
+      // ----------------------------------------------
+      let response = "Loading...";
 
-      // --------------------------------------
-    </script>
+      if (response) {
+        addBotMessage(response); // Assuming the response has a 'message' property
+      }
+    }
 
-    <!-- ------------------------------------- -->
-    <iframe
-      plausible-embed
-      src="https://plausible.io/share/lhfund-main.vercel.app?auth=_YBNJieuZ-s8S2zVgQnbz&embed=true&theme=light"
-      scrolling="no"
-      frameborder="10"
-      loading="lazy"
-      style="width: 1px; min-width: 100%; height: 1600px"
-    ></iframe>
-    <div style="font-size: 14px; padding-bottom: 14px">
-      Stats powered by
-      <a
-        target="_blank"
-        style="color: #4f46e5; text-decoration: underline"
-        href="https://plausible.io"
-        >Plausible Analytics</a
-      >
-    </div>
-    <script async src="https://plausible.io/js/embed.host.js"></script>
+    // Automatically open the chatbox on page load
+    toggleChatbox();
 
-    <!-- <div id="root"></div> -->
-    <script type="module" src="/src/main.tsx"></script>
-    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
-  </body>
+    // --------------------------------------
+  </script>
+
+  <!-- ------------------------------------- -->
+  <iframe plausible-embed
+    src="https://plausible.io/share/lhfund-main.vercel.app?auth=_YBNJieuZ-s8S2zVgQnbz&embed=true&theme=light"
+    scrolling="no" frameborder="10" loading="lazy" style="width: 1px; min-width: 100%; height: 1600px"></iframe>
+  <div style="font-size: 14px; padding-bottom: 14px">
+    Stats powered by
+    <a target="_blank" style="color: #4f46e5; text-decoration: underline" href="https://plausible.io">Plausible
+      Analytics</a>
+  </div>
+  <script async src="https://plausible.io/js/embed.host.js"></script>
+
+  <!-- <div id="root"></div> -->
+  <script type="module" src="/src/main.tsx"></script>
+  <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+</body>
+
 </html>
